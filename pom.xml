@@ -16,7 +16,7 @@
 		<!-- 编译编码 -->
 		<maven.compiler.encoding>UTF-8</maven.compiler.encoding>
 
-		<spring.version>4.1.6.RELEASE</spring.version>
+		<spring.version>4.3.6.RELEASE</spring.version>
 		<struts2.version>2.3.4.1</struts2.version>
 		<hibernate.version>4.3.8.Final</hibernate.version>
 	</properties>
