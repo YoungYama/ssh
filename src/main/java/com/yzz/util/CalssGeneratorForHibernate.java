@@ -24,7 +24,7 @@ public class CalssGeneratorForHibernate {
 	}
 
 	public static void main(String[] args) throws Exception {
-		String classGeneratorConfigXML =projectPath + "\\src\\test\\java\\com\\espeed\\test\\yzz-class-generator.xml";
+		String classGeneratorConfigXML =projectPath + "\\src\\com\\espeed\\test\\yzz-class-generator.xml";
 		
 		CalssGeneratorConfig.setClassGeneratorConfigXML(classGeneratorConfigXML);
 		Map<String, Object> map = CalssGeneratorConfig.getTableAndClassDatas();
@@ -37,6 +37,7 @@ public class CalssGeneratorForHibernate {
 	
 	private static boolean isTuo = false;//属性是否驼峰化
 	private static String AUTHOR = "杨志钊";
+	private static String system = "鹰学堂系统";
 
 	private static List<String> tableNames;
 	private static List<List<String>> tableColumnNames;
@@ -71,7 +72,7 @@ public class CalssGeneratorForHibernate {
 		classPropertyTypes = (List<List<String>>) map.get("classPropertyTypes");
 		propertyTypeFullNames = (List<List<String>>) map.get("propertyTypeFullNames");
 		classPropertyNames = (List<List<String>>) map.get("classPropertyNames");
-		dtoTargetPackage = map.get("dtoTargetPackage").toString();
+		utilTargetPackage = map.get("utilTargetPackage").toString();
 		utilTargetPackage = map.get("utilTargetPackage").toString();
 		entityTargetDir = projectPath + map.get("entityTargetDir");
 		entityTargetPackage = map.get("entityTargetPackage").toString();
@@ -90,7 +91,7 @@ public class CalssGeneratorForHibernate {
 	 public static String geTauthorInfo(String description, String author) {
 			String authorInfo = "/** \n"+
 					 "* \n"+
-					 "* @项目名称: 鹰眼搜搜索系统 \n"+
+					 "* @项目名称: " + system + " \n"+
 					 "* @版权所有: 深圳市科飞时速网络技术有限公司(0755-88843776) \n"+
 					 "* @技术支持: info@21gmail.com \n"+
 					 "* @单元名称: " + description + " \n"+
@@ -172,7 +173,7 @@ public class CalssGeneratorForHibernate {
 					"\n"+
 					"import java.util.List;\n"+
 					"\n"+
-					"import " + dtoTargetPackage + ".PageBean;\n"+
+					"import " + utilTargetPackage + ".PageBean;\n"+
 					"import " + entityTargetPackage + "." + entityClassName + ";\n"+
 					"\n" + info + " \n"+
 					"\n"+
@@ -218,34 +219,34 @@ public class CalssGeneratorForHibernate {
 			
 			String classIdPropertyType = classPropertyTypes.get(i).get(0);
 			
-			String daoTemplate = "package " + daoTargetPackage + ";\n"+
+			String daoTemplate = "package " + daoTargetPackage + ".impl;\n"+
 					"\n"+
 					"import java.util.List;\n"+
 					"\n"+
-					"import " + dtoTargetPackage + ".PageBean;\n"+
+					"import " + utilTargetPackage + ".PageBean;\n"+
 					"import " + entityTargetPackage + "." + entityClassName + ";\n"+
 					"import " + daoTargetPackage + "." + entityClassName + "Dao;\n"+
 					"\n" + info + " \n"+
 					"\n"+
 					"public class " + className + " extends CentreHibernateBaseDAOImpl<" + entityClassName + ", Long> implements " + entityClassName + "Dao {\n"+
 					"\n	/**实体插入*/\n"+
-					"	public int addPojo(" + entityClassName + " entity) throws Exception {\n		super.add(entity);\n}\n"+
+					"	public int addPojo(" + entityClassName + " entity) throws Exception {\n		return super.add(entity);	\n	}\n"+
 					"\n	/**实体编辑*/\n"+
-					"	public void updatePojo(" + entityClassName + " entity) throws Exception {\n		super.update(entity);\n}\n"+
+					"	public void updatePojo(" + entityClassName + " entity) throws Exception {\n		super.update(entity);	\n	}\n"+
 					"\n	/**HQL查询*/\n"+
-					"	public List<" + entityClassName + "> findByHql(String hql) throws Exception {\n		return super.getAll(hql);\n}\n"+
+					"	public List<" + entityClassName + "> findByHql(String hql) throws Exception {\n		return super.getAll(hql);	\n	}\n"+
 					"\n	/**HQL指定条查询*/\n"+
-					"	public List<" + entityClassName + "> findByHqlSet(String hql,int num) throws Exception {\n		return super.findBySet(hql, num);\n}\n"+
+					"	public List<" + entityClassName + "> findByHqlSet(String hql,int num) throws Exception {\n		return super.findBySet(hql, num);	\n	}\n"+
 					"\n	/**SQL查询*/\n"+
-					"	public List<Object> findBySqlFind(String sql) throws Exception {\n		return super.findBySql(sql);\n}\n"+
+					"	public List<Object> findBySqlFind(String sql) throws Exception {\n		return super.findBySql(sql);	\n	}\n"+
 					"\n	/**HQL查询分页*/\n"+
-					"	public List<" + entityClassName + "> findByHqlPage(String hql,String hqlcount,PageBean pb) throws Exception {\n		return super.findByPage(hql, hqlcount, pb);\n}\n"+
+					"	public List<" + entityClassName + "> findByHqlPage(String hql,String hqlcount,PageBean pb) throws Exception {\n		return super.findByPage(hql, hqlcount, pb);	\n	}\n"+
 					"\n	/**HQL更新*/\n"+
-					"	public void updateByHql(String hql) throws Exception {\n		super.updateorDelByHql(hql);\n}\n"+
+					"	public void updateByHql(String hql) throws Exception {\n		super.updateorDelByHql(hql);	\n	}\n"+
 					"\n	/**sql更新*/\n"+
-					"	public void updateBySql(String sql) throws Exception {\n		super.updateorDelSql(sql);\n}\n"+
+					"	public void updateBySql(String sql) throws Exception {\n		super.updateorDelSql(sql);	\n	}\n"+
 					"\n	/**HQL查询数量*/\n"+
-					"	public int findByHqlCount(String hql) throws Exception {\n		return super.count(hql);\n}\n"+
+					"	public int findByHqlCount(String hql) throws Exception {\n		return super.count(hql);	\n	}\n"+
 					"\n"+
 					"}\n";
 			
